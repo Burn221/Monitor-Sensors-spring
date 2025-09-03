@@ -17,7 +17,7 @@ import ru.nikitanevmyvaka.monitorsensors.model.enums.Unit;
 @Getter
 @Setter
 @RequiredArgsConstructor
-
+@Table(name = "sensors")
 public class Sensor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
