@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,7 @@ public class SensorController {
 
     private final SensorServiceImpl service;
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<SensorResponse> createSensor(@RequestBody @Valid SensorCreateRequest dto){
         SensorResponse response= service.createSensor(dto);
@@ -31,6 +33,7 @@ public class SensorController {
                 .body(response);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<SensorResponse> updateSensor(@PathVariable Long id,@RequestBody @Valid SensorUpdateRequest dto){
 
@@ -48,7 +51,7 @@ public class SensorController {
 
         return ResponseEntity.ok().body(response);
     }
-
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<SensorResponse> getSensor(@PathVariable Long id){
         SensorResponse response= service.getSensor(id);
@@ -56,11 +59,21 @@ public class SensorController {
         return ResponseEntity.ok(response);
     }
 
+
+    @PreAuthorize(" hasAuthority('ROLE_VIEWER') || hasAuthority('ROLE_ADMIN')")
+
     @GetMapping
     public List<SensorResponse> getAllSensors(){
         return service.getAllSensors();
     }
 
+
+    @GetMapping("/welcome")
+    public String welcomePage(){
+        return "Welcome";
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSensor(@PathVariable Long id){
         service.deleteSensor(id);
