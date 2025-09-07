@@ -34,7 +34,6 @@ public class Sensor {
     private String model;
 
     @Valid
-    @Column(name = "range")
     private SensorRange range;
 
     @NotNull

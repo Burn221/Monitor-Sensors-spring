@@ -1,0 +1,30 @@
+
+volumes:
+  pg_sensor:
+
+services:
+  sensors:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=sensors
+    volumes:
+      - pg_sensor:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5433:5432"
+
+  app:
+    restart: always
+    build: .
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      - sensors
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:postgresql://sensors:5432/sensors'
+      JAVA_OPTS: '-Xmx512m'
+
+
