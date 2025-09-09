@@ -11,7 +11,7 @@ import ru.nikitanevmyvaka.monitorsensors.model.MyUser;
 import ru.nikitanevmyvaka.monitorsensors.service.MyUserDetailsService;
 
 @RestController
-@RequestMapping("api/v1/users")
+@RequestMapping("/api/v1/users")
 @AllArgsConstructor
 public class MyUserController {
 

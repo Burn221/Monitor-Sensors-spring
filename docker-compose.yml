@@ -3,13 +3,13 @@ volumes:
   pg_sensor:
 
 services:
-  sensors:
+  sensors_db:
     image: postgres
     restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=sensors
+      - POSTGRES_DB=sensors_db
     volumes:
       - pg_sensor:/var/lib/postgresql/data
     ports:
@@ -22,9 +22,9 @@ services:
       - "8080:8080"
 
     depends_on:
-      - sensors
+      - sensors_db
     environment:
-      SPRING_DATASOURCE_URL: 'jdbc:postgresql://sensors:5432/sensors'
+      SPRING_DATASOURCE_URL: 'jdbc:postgresql://sensors:5432/sensors_db'
       JAVA_OPTS: '-Xmx512m'
 
 

@@ -1,6 +1,7 @@
 package ru.nikitanevmyvaka.monitorsensors.dto;
 
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -12,20 +13,21 @@ import ru.nikitanevmyvaka.monitorsensors.model.enums.Type;
 import ru.nikitanevmyvaka.monitorsensors.model.enums.Unit;
 
 public record SensorCreateRequest(
-        @NotBlank @Size(min = 3, max = 30)
+        @Schema(example = "Sensor1") @NotBlank @Size(min = 3, max = 30)
         String name,
 
-        @NotBlank @Size(max = 15) String model,
+        @Schema(example = "AS-23") @NotBlank @Size(max = 15) String model,
 
-        @Valid SensorRangeDTO range,
+        @Schema(example = "Temperature")@Valid SensorRangeDTO range,
 
-        @NotNull Type type,
 
-        @NotNull Unit unit,
+        @Schema(example = "temperature")@NotNull Type type,
 
-        @Size(max = 40) String location,
+        @Schema(example = "bar")@NotNull Unit unit,
 
-        @Size(max = 200) String description
+        @Schema(example = "kitchen")@Size(max = 40) String location,
+
+        @Schema(example = "sensor as-23 at kitchen")@Size(max = 200) String description
 
 
 ) {

@@ -1,5 +1,7 @@
 package ru.nikitanevmyvaka.monitorsensors.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +22,13 @@ import java.util.List;
 @RestController
 @Validated
 @RequestMapping("/api/v1/sensors")
+@Tag(name="Sensors", description = "Sensors controller endpoints")
 public class SensorController {
 
     private final SensorServiceImpl service;
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @Operation(summary = "Create sensor")
     @PostMapping
     public ResponseEntity<SensorResponse> createSensor(@RequestBody @Valid SensorCreateRequest dto){
         SensorResponse response= service.createSensor(dto);
@@ -34,6 +38,7 @@ public class SensorController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @Operation(summary = "Update sensor")
     @PutMapping("/{id}")
     public ResponseEntity<SensorResponse> updateSensor(@PathVariable Long id,@RequestBody @Valid SensorUpdateRequest dto){
 
@@ -51,6 +56,8 @@ public class SensorController {
 
         return ResponseEntity.ok().body(response);
     }
+
+    @Operation(summary = "Get sensor by id")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<SensorResponse> getSensor(@PathVariable Long id){
@@ -61,19 +68,22 @@ public class SensorController {
 
 
     @PreAuthorize(" hasAuthority('ROLE_VIEWER') || hasAuthority('ROLE_ADMIN')")
-
+    @Operation(summary = "Get all sensors")
     @GetMapping
     public List<SensorResponse> getAllSensors(){
         return service.getAllSensors();
     }
 
 
+    @Operation(summary = "Welcome page")
     @GetMapping("/welcome")
     public String welcomePage(){
         return "Welcome";
     }
 
+
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @Operation(summary = "Delete sensor")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSensor(@PathVariable Long id){
         service.deleteSensor(id);
