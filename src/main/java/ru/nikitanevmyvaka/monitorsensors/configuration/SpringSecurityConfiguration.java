@@ -37,7 +37,7 @@ public class SpringSecurityConfiguration {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth->auth
                         .requestMatchers("/api/v1/sensors/welcome","/api/v1/users/new-user").permitAll()
-                        .requestMatchers("/api/v1/sensors/**").authenticated())
+                        .requestMatchers("/api/v1/sensors/**").permitAll())
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                 .build();
