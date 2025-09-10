@@ -13,10 +13,10 @@ import ru.nikitanevmyvaka.monitorsensors.model.enums.Type;
 import ru.nikitanevmyvaka.monitorsensors.model.enums.Unit;
 
 public record SensorCreateRequest(
-        @Schema(example = "Sensor1") @NotBlank @Size(min = 3, max = 30)
+        @Schema(example = "Sensor1") @Valid @NotBlank @Size (min = 3, max = 30)
         String name,
 
-        @Schema(example = "AS-23") @NotBlank @Size(max = 15) String model,
+        @Schema(example = "AS-23") @Valid @NotBlank @Size(max = 15) String model,
 
         @Schema(example = "Temperature")@Valid SensorRangeDTO range,
 

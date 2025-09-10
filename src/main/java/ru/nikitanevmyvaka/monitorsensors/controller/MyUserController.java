@@ -1,5 +1,6 @@
 package ru.nikitanevmyvaka.monitorsensors.controller;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class MyUserController {
 
 
     @PostMapping("/new-user")
-    public String createUser(@RequestBody MyUser user){
+    public String createUser(@RequestBody @Valid MyUser user){
         service.createUser(user);
         return "user successfully saved";
 

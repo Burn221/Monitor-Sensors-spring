@@ -75,6 +75,21 @@ public class SensorController {
     }
 
 
+    @PreAuthorize("hasAuthority('ROLE_VIEWER') || hasAuthority('ROLE_ADMIN')")
+    @Operation(summary = "Find sensor by name")
+    @GetMapping("/by-name/{name}")
+    public List<SensorResponse> searchByName(@PathVariable String name){
+        return service.searchByName(name);
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_VIEWER') || hasAuthority('ROLE_ADMIN')")
+    @Operation(summary = "Find model by name")
+    @GetMapping("/by-model/{model}")
+    public List<SensorResponse> searchByModel(@PathVariable String model){
+        return service.searchByModel(model);
+    }
+
+
     @Operation(summary = "Welcome page")
     @GetMapping("/welcome")
     public String welcomePage(){
