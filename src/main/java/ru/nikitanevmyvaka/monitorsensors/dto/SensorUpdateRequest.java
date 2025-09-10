@@ -12,10 +12,10 @@ import ru.nikitanevmyvaka.monitorsensors.model.enums.Unit;
 public record SensorUpdateRequest(
         @NotNull @Positive Long id,
 
-        @NotBlank @NotNull @Size(min = 3,max = 30)
+        @Valid @NotBlank @NotNull @Size(min = 3,max = 30)
         String name,
 
-        @NotBlank @Size(max = 15) String model,
+        @Valid @NotBlank @Size(max = 15) String model,
 
         @Valid SensorRangeDTO range,
 

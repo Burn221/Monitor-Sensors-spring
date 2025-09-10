@@ -2,6 +2,7 @@ package ru.nikitanevmyvaka.monitorsensors.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Generated;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +19,11 @@ public class MyUser {
     @Id
     private Long id;
 
+    @NotNull
     @Column(name = "name", unique = true)
     private String name;
 
-
+    @NotNull
     @Column(name="password")
     private String password;
 

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import ru.nikitanevmyvaka.monitorsensors.dto.SensorCreateRequest;
 import ru.nikitanevmyvaka.monitorsensors.dto.SensorResponse;
 import ru.nikitanevmyvaka.monitorsensors.dto.SensorUpdateRequest;
-import ru.nikitanevmyvaka.monitorsensors.exceptions.ConflictException;
 import ru.nikitanevmyvaka.monitorsensors.exceptions.MissingArgumentException;
 import ru.nikitanevmyvaka.monitorsensors.mapper.SensorMapper;
 import ru.nikitanevmyvaka.monitorsensors.model.Sensor;
@@ -54,6 +53,18 @@ public class SensorServiceImpl implements SensorService {
     public SensorResponse getSensor(Long id) {
         return mapper.toResponse(repository.findById(id)
                 .orElseThrow(() -> new MissingArgumentException("This sensor doesn't exist")));
+    }
+
+    public List<SensorResponse> searchByName(String name){
+        return repository.searchByNamePartially(name).stream()
+                .map(mapper::toResponse).collect(Collectors.toList());
+
+    }
+
+    public List<SensorResponse> searchByModel(String model){
+        return repository.searchByModelPartially(model).stream()
+                .map(mapper::toResponse).collect(Collectors.toList());
+
     }
 
     @Transactional

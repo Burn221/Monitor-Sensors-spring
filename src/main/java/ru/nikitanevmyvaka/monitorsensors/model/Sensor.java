@@ -23,17 +23,18 @@ public class Sensor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotNull
     @Size(min = 3, max=30)
     @Column (name = "sensor_name", nullable = false)
     private String name;
 
-    @NotBlank
+    @NotNull
     @Size(max = 15)
     @Column(name = "model", nullable = false)
     private String model;
 
     @Valid
+    @NotNull
     private SensorRange range;
 
     @NotNull
