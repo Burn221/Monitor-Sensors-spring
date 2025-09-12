@@ -25,7 +25,7 @@ public class Sensor {
 
     @NotNull
     @Size(min = 3, max=30)
-    @Column (name = "sensor_name", nullable = false)
+    @Column (name = "sensor_name", nullable = false, unique = true)
     private String name;
 
     @NotNull

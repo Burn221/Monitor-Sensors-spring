@@ -34,10 +34,15 @@ public class SpringSecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        return http.csrf(AbstractHttpConfigurer::disable)
+        return http.csrf(csrf-> csrf.disable())
                 .authorizeHttpRequests(auth->auth
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/api/v1/sensors/welcome","/api/v1/users/new-user").permitAll()
-                        .requestMatchers("/api/v1/sensors/**").permitAll())
+                        .requestMatchers("/api/v1/sensors/**").authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                 .build();
