@@ -6,7 +6,7 @@ Pet проект для управления сенсорами: хранени�
 ---
 
 ## 🚀 Основной стек
-- **Java 23** + **Spring Boot 3.5**
+- **Java 17** + **Spring Boot 3.5**
 - **Spring Data JPA** (Hibernate)
 - **Spring Security** (Basic Auth, BCrypt)
 - **Bean Validation** (`@Valid`, `@NotNull`, `@Positive`, `@AssertTrue`)
