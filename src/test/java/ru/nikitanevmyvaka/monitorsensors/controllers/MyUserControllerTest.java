@@ -35,7 +35,7 @@ public class MyUserControllerTest {
                 ))
                 .andExpectAll(
 
-                        
+
                         MockMvcResultMatchers.content().string("user successfully saved")
 
 
