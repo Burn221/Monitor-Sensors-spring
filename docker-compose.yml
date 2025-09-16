@@ -24,7 +24,7 @@ services:
     depends_on:
       - sensors_db
     environment:
-      SPRING_DATASOURCE_URL: 'jdbc:postgresql://sensors:5432/sensors_db'
+      SPRING_DATASOURCE_URL: 'jdbc:postgresql://sensors_db:5432/sensors_db'
       JAVA_OPTS: '-Xmx512m'
 
 
