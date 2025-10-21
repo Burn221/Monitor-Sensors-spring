@@ -6,10 +6,12 @@ services:
   sensors_db:
     image: postgres
     restart: always
+    env_file:
+      - .env
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=sensors_db
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     volumes:
       - pg_sensor:/var/lib/postgresql/data
     ports:
@@ -23,8 +25,8 @@ services:
 
     depends_on:
       - sensors_db
-    environment:
-      SPRING_DATASOURCE_URL: 'jdbc:postgresql://sensors_db:5432/sensors_db'
-      JAVA_OPTS: '-Xmx512m'
+    env_file:
+      - .env
+
 
 
