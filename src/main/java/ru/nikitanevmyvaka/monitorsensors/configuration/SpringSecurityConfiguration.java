@@ -27,22 +27,24 @@ import ru.nikitanevmyvaka.monitorsensors.service.MyUserDetailsService;
 public class SpringSecurityConfiguration {
 
     @Bean
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
 
         return new MyUserDetailsService();
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        return http.csrf(csrf-> csrf.disable())
-                .authorizeHttpRequests(auth->auth
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http.csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).hasAuthority("ROLE_ADMIN")
-                        .requestMatchers("/api/v1/sensors/welcome","/api/v1/users/new-user").permitAll()
+                        .requestMatchers("/api/v1/sensors/welcome", "/api/v1/users/new-user").permitAll()
                         .requestMatchers("/api/v1/sensors/**").authenticated())
+                .rememberMe(remember-> remember.userDetailsService(userDetailsService())
+                        )
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                 .build();
@@ -50,15 +52,17 @@ public class SpringSecurityConfiguration {
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider provider= new DaoAuthenticationProvider();
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService());
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
 
     }
+
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
 
-    }}
+    }
+}
